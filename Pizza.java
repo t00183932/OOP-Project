@@ -1,26 +1,26 @@
 package Project;
 
-public class Pizza extends Order {
+public class Pizza extends Toppings {
     protected Toppings toppings;
+    private String type;
     private String size;
-    private double price;
+    private double price=0;
 
     public Pizza()
     {
-        super();
-        toppings = new Toppings("Unknown","Unknown");
+        this("unknown","unknown",0,null,0);
     }
 
-    public Pizza(String type, String topping, String sauce, String size, double price)
+    public Pizza(String type, String size, int portions, String[] main, double price)
     {
-        this.toppings = new Toppings(topping,sauce);
+        this.toppings = new Toppings(portions,main);
         setSize(size);
         setPrice(price);
     }
 
-    public void setTopping(String topping, String sauce)
+    public void setTopping(int portions, String[] main)
     {
-        this.toppings = new Toppings(topping,sauce);
+        this.toppings = new Toppings(portions,main);
     }
 
     public void setSize(String size)
@@ -33,10 +33,6 @@ public class Pizza extends Order {
         this.price = price;
     }
 
-    public Toppings getTopping() {
-        return toppings;
-    }
-
     public String getSize() {
         return size;
     }
@@ -44,4 +40,5 @@ public class Pizza extends Order {
     public double getPrice() {
         return price;
     }
+
 }

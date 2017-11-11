@@ -1,29 +1,43 @@
 package Project;
 
+import java.util.ArrayList;
+
 public class Order {
-    private String type;
+    private static int orderNo=0;
+    private ArrayList<Pizza> orders;
 
     public Order() {
-        this("Unknown");
+        this(0,null);
     }
 
-    public Order(String type)
+    public Order(int orderNo, ArrayList<Pizza> orders)
     {
-        setType(type);
+        setOrder(orders);
+        orderNo();
     }
 
-    public void setType(String type)
+    public void orderNo()
     {
-        this.type = type;
+        orderNo++;
     }
 
-    public String getType()
+    public static int getOrderNo()
     {
-        return this.type;
+        return orderNo;
+    }
+
+    public void setOrder(ArrayList<Pizza> order)
+    {
+        this.orders = order;
+    }
+
+    public String getOrders()
+    {
+        return orders.toString();
     }
 
     public String toString()
     {
-        return "Type: " + getType();
+        return "Type: " + getOrders();
     }
 }
