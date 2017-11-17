@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Order {
     private static int orderNo=0;
-    private ArrayList<Pizza> orders;
+    private ArrayList<Pizza> order;
 
     public Order() {
-        this(0,null);
+        this(null);
     }
 
-    public Order(int orderNo, ArrayList<Pizza> orders)
+    public Order(ArrayList<Pizza> orders)
     {
         setOrder(orders);
         orderNo();
@@ -28,16 +28,16 @@ public class Order {
 
     public void setOrder(ArrayList<Pizza> order)
     {
-        this.orders = order;
+        this.order = order;
     }
 
-    public String getOrders()
+    public String getOrder()
     {
-        return orders.toString();
+        return order.toString();
     }
 
     public String toString()
     {
-        return "Type: " + getOrders();
+        return String.format("%s%d%s$s","Order Num: ", getOrderNo(),"Order: " + getOrder());
     }
 }

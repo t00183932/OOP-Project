@@ -26,8 +26,9 @@ public class Customer extends User {
         setEmail(email);
     }
 
-    public void type(String type) {
+    public void setType(String type) {
         this.type = type;
+
     }
 
     public void setName(String name) {
