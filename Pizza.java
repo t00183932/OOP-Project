@@ -1,26 +1,31 @@
 package Project;
 
-public class Pizza extends Toppings {
-    protected Toppings toppings;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Pizza extends Toppings implements Serializable {
     private String type;
     private String size;
-    private double price=0;
+    private Toppings toppings;
+    private double pizzaPrice;
+    private double totalPrice=0;
 
     public Pizza()
     {
         this("unknown","unknown",0,null,0);
     }
 
-    public Pizza(String type, String size, int portions, String[] main, double price)
+    public Pizza(String type, String size, double toppingPrice, ArrayList<String> main, double pizzaPrice)
     {
-        this.toppings = new Toppings(portions,main);
+        setType(type);
         setSize(size);
-        setPrice(price);
+        this.toppings = new Toppings(toppingPrice,main);
+        setPizzaPrice(pizzaPrice);
+        setTotalPrice(totalPrice);
     }
 
-    public void setTopping(int portions, String[] main)
-    {
-        this.toppings = new Toppings(portions,main);
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setSize(String size)
@@ -28,17 +33,57 @@ public class Pizza extends Toppings {
         this.size = size;
     }
 
-    public void setPrice(double price)
+    public void setPizzaPrice(double pizzaPrice) {
+        this.pizzaPrice = pizzaPrice;
+    }
+
+    public void setTotalPrice(double totalprice) {
+        this.totalPrice = totalprice;
+    }
+
+    public void setToppings(double price, ArrayList<String> main)
     {
-        this.price = price;
+        this.toppings.setToppingPrice(price);
+        this.toppings.setToppings(main);
+    }
+
+    public String getToppings()
+    {
+        return this.toppings.toString();
+
+    }
+
+    public double getToppingPrice()
+    {
+        return this.toppings.getToppingPrice();
+
+    }
+
+
+
+    public String getType() {
+        return this.type;
     }
 
     public String getSize() {
-        return size;
+        return this.size;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPizzaPrice()
+    {
+        return this.pizzaPrice;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public String toString()
+    {
+        totalPrice = this.getToppingPrice()+pizzaPrice;
+
+        return String.format("%s%s\n%s%s\n%s%.2f\n%s%s\n%s%.2f","Pizza Type: ", getType(),"Size: ", getSize(),"Topping Price: ", getToppingPrice(),"Toppings: ",
+        getToppings(),"Pizza Price: ", getPizzaPrice()) + "\n\nTotal Price: " + String.format("%.2f",totalPrice) + "\n";
     }
 
 }

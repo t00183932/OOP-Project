@@ -1,29 +1,37 @@
 package Project;
 
-public class Customer extends User {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Customer extends Order {
     private String type;
     private String name;
     private String city;
     private String address;
     private int houseNo;
+    private String username;
     private String password;
     private String phone;
     private String email;
+    private Order orders;
 
     public Customer()
     {
-        this("unknown","unknown","unknown",0,"unknown","unknown","unknown");
+        this("unknown","unknown","unknown",0,"Unknown","unknown","unknown","unknown",null);
     }
 
-    public Customer(String name, String city, String address,int houseNo, String password, String phone, String email)
+    public Customer(String name, String city, String address,int houseNo,String username, String password, String phone, String email, ArrayList<Pizza> orders)
     {
         setName(name);
         setCity(city);
         setAddress(address);
         setHouseNo(houseNo);
+        setUsername(username);
         setPassword(password);
         setPhone(phone);
         setEmail(email);
+        this.orders = new Order(orders);
+
     }
 
     public void setType(String type) {
@@ -48,22 +56,28 @@ public class Customer extends User {
         this.houseNo = houseNo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getType()
     {
         return this.type;
     }
+
     public String getName() {
         return name;
     }
@@ -80,6 +94,10 @@ public class Customer extends User {
         return houseNo;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -93,7 +111,7 @@ public class Customer extends User {
     }
 
     public String toString() {
-        return String.format("%s%s\n%s%s\n%s%s\n%s%d\n%s%s\n%s%s","Name: ", getName(),"City:", getCity(),"Address: ", getAddress(),
+        return String.format("%s%s\n%s%s\n%s%s\n%s%s\n%s%d\n%s%s\n%s%s","Name: ", getName(),"Username: ", getUsername(),"City:", getCity(),"Address: ", getAddress(),
                 "HouseNo: ", getHouseNo(),"Phone: ", getPhone(),"Email: ", getEmail());
     }
 }

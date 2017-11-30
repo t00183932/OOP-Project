@@ -1,10 +1,10 @@
 package Project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
-    private static int orderNo=0;
-    private ArrayList<Pizza> order;
+public class Order extends Pizza  {
+    private ArrayList<Pizza> orders = new ArrayList<>();
 
     public Order() {
         this(null);
@@ -12,32 +12,24 @@ public class Order {
 
     public Order(ArrayList<Pizza> orders)
     {
-        setOrder(orders);
-        orderNo();
     }
 
-    public void orderNo()
+
+    public void setOrder(Pizza order)
     {
-        orderNo++;
+        this.orders.add(order);
     }
 
-    public static int getOrderNo()
+    public String getOrders()
     {
-        return orderNo;
+        String txt="";
+
+        for(int i=0; i<orders.size(); i++)
+        {
+            txt+= orders.get(i) + "\n";
+        }
+
+        return txt;
     }
 
-    public void setOrder(ArrayList<Pizza> order)
-    {
-        this.order = order;
-    }
-
-    public String getOrder()
-    {
-        return order.toString();
-    }
-
-    public String toString()
-    {
-        return String.format("%s%d%s$s","Order Num: ", getOrderNo(),"Order: " + getOrder());
-    }
 }

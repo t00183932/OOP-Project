@@ -1,6 +1,6 @@
 package Project;
 
-public class Admin extends User {
+public class Admin implements User {
     private String type;
     private String username;
     private String password;

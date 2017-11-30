@@ -1,31 +1,36 @@
 package Project;
 
-import sun.security.util.Password;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class PizzaDeliveryGUI extends JFrame implements ActionListener {
+/**
+ * author: Miomir Miletic
+ */
 
-    JMenu userMenu, optionsMenu;
+public class PizzaDeliveryGUI extends JFrame implements ActionListener{
+
+    JMenu userMenu;
     JLabel usernameLabel, passwordLabel;
-    JPanel loginPanel;
+    JPanel loginPanel;  
     JTextField usernameField;
+    JPasswordField passwordField;
     JButton loginButton;
     JButton signupButton;
     GridBagConstraints gc = new GridBagConstraints();
     public static Customer customer = new Customer();
-    public static ArrayList<Customer> customers = new ArrayList<>();
-
-
-    JPasswordField passwordField;
+    public static ArrayList<Customer> customers = new ArrayList<>(); //variables declared as public static so other classes have access to the list.
+    public static int i;
 
     public static void main(String[] args) {
 
-        PizzaDeliveryGUI gui = new PizzaDeliveryGUI();
+        PizzaDeliveryGUI gui = new PizzaDeliveryGUI(); //driver running the gui application
         gui.setVisible(true);
+
     }
 
     public PizzaDeliveryGUI() {
@@ -37,21 +42,23 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        createFileMenu();
-        createAdminMenu();
+        createUserMenu();
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.add(userMenu);
-        menuBar.add(optionsMenu);
+
+
 
         createHeaderLabel();
 
         createLoginPanel();
 
+
+
     }
 
-    private void createFileMenu() {
+    private void createUserMenu() {
         userMenu = new JMenu("User");
         JMenuItem item;
         item = new JMenuItem("Register Account");
@@ -61,15 +68,6 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener {
         item = new JMenuItem("Quit");
         item.addActionListener(this);
         userMenu.add(item);
-    }
-
-    private void createAdminMenu() {
-        optionsMenu = new JMenu("Admin");
-        JMenuItem item;
-        item = new JMenuItem("Log in as Administrator");
-        item.addActionListener(this);
-        optionsMenu.add(item);
-
     }
 
     private void createHeaderLabel() {
@@ -86,7 +84,7 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener {
 
     private void createLoginPanel() {
         loginPanel = new JPanel(new GridBagLayout());
-        usernameLabel = new JLabel("User");
+        usernameLabel = new JLabel("Username :");
         gc.gridx = 0;
         gc.gridy = 0;
         gc.insets = new Insets(0, 0, 20, 5);
@@ -96,7 +94,7 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener {
         gc.gridx = 1;
         gc.gridy = 0;
         loginPanel.add(usernameField, gc);
-        passwordLabel = new JLabel("Password");
+        passwordLabel = new JLabel("Password :");
         gc.gridx = 0;
         gc.gridy = 1;
         loginPanel.add(passwordLabel, gc);
@@ -129,7 +127,7 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("Register Account") || e.getSource() == signupButton) {
-            registerCustomer();
+            registerCustomer(); //opens up another gui application from a different class when event happens
         }
 
         if (e.getActionCommand().equals("Quit")) {
@@ -143,42 +141,42 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener {
         }
 
         if (e.getActionCommand().equals("Login")) {
-            String name, password, aname, apassword;
+            String name, password, ausername, apassword;
             name = usernameField.getText();
             password = new String(passwordField.getPassword());
-            int i;
 
             if(!customers.isEmpty())
             {
                 for(i=0; i<customers.size(); i++) {
 
-                    aname = customers.get(i).getName();
+                    ausername = customers.get(i).getUsername();
                     apassword = customers.get(i).getPassword();
 
-                    if (name.equals(aname) && password.equals(apassword)) {
+                    //checks to see if a customer is registered by going through the array list of customers.
+
+                    if (name.equals(ausername) && password.equals(apassword)) {
                         JOptionPane.showMessageDialog(null, "Welcome " + name,"Login Successful",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        break;
 
+                        CustomerGUI c = new CustomerGUI();
+                        c.setVisible(true);
+                        this.dispose();
+                        break;
                     }
 
 
                 }
 
                 if(i == customers.size())
-                {
                     JOptionPane.showMessageDialog(null, "Invalid user/password", "Login Failed",
                             JOptionPane.ERROR_MESSAGE);
-                }
+
 
             }
 
             else
                 JOptionPane.showMessageDialog(null, "Invalid user/password", "Login Failed",
                         JOptionPane.ERROR_MESSAGE);
-
-
-
 
         }
 

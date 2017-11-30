@@ -1,10 +1,11 @@
 package Project;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Toppings {
-    private int portions;
-    private String[] main = new String[4];
+    private double toppingPrice;
+    private ArrayList<String> main = new ArrayList<>();
 
 
     public Toppings()
@@ -12,36 +13,45 @@ public class Toppings {
         this(0,null);
     }
 
-    public Toppings(int portions, String[] main)
+    public Toppings(double toppingPrice, ArrayList<String> main)
     {
-        setPortions(portions);
+        setToppingPrice(toppingPrice);
         setToppings(main);
     }
 
-    public void setPortions(int portions) {
-        this.portions = portions;
+    public void setToppingPrice(double toppingPrice) {
+        this.toppingPrice = toppingPrice;
     }
 
-    public void setToppings(String[] toppings)
+    public void setToppings(ArrayList<String> main)
     {
         this.main = main;
     }
 
-    public int getPortions() {
-        return this.portions;
+    public double getToppingPrice() {
+        return this.toppingPrice;
     }
 
     public String getToppings() {
 
+        JTextArea txtArea = new JTextArea();
+
         String txt="";
 
-        txt+= this.main[0];
+        txt+= this.main.get(0);
 
-        for(int i=1; i<this.main.length; i++)
+        for(int i=1; i<this.main.size(); i++)
         {
-            txt+= ", " + this.main[i];
+            txt+= ", " + this.main.get(i);
         }
 
+        txtArea.append(txt);
+
         return txt;
+    }
+
+    public String toString()
+    {
+        return getToppings();
     }
 }
