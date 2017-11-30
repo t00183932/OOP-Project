@@ -1,8 +1,10 @@
 package Project;
 
-public interface  User {
+public abstract class  User {
 
-    void setType(String type);
+    void setType(String type){}
 
-    void setPassword(String password);
+    void setUsername(String username){}
+
+    void setPassword(String password){}
 }
