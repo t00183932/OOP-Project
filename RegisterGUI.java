@@ -187,15 +187,6 @@ public class RegisterGUI extends JFrame implements ActionListener {
         pw.close();
     }
 
-    private void write(ObjectOutputStream oos) throws IOException {
-        oos.defaultWriteObject();
-        // How many custoemrs we're tracking.
-        oos.writeInt(PizzaDeliveryGUI.customers.size());
-        for (Customer c : PizzaDeliveryGUI.customers) {
-            oos.writeObject(c);
-        }
-        System.out.println("session serialized");
-    }
 
 
 

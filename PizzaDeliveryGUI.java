@@ -130,7 +130,6 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener{
     private void load(ObjectInputStream ois)
             throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
-        // how many customers to read.
         int size = ois.readInt();
         for (int i = 0; i < size; i++) {
             Customer c = (Customer) ois.readObject();

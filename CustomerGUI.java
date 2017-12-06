@@ -9,6 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -288,6 +292,11 @@ public class CustomerGUI extends JFrame implements ActionListener {
                     if(c == JOptionPane.YES_OPTION) {
                         customer().setOrder(order);
                         JOptionPane.showMessageDialog(null,"Your order is complete","Order sent",JOptionPane.INFORMATION_MESSAGE);
+                        try {
+                            save("customers.dat");
+                        } catch (IOException var4) {
+                            var4.printStackTrace();
+                        }
                     }
 
                     else
@@ -328,4 +337,12 @@ public class CustomerGUI extends JFrame implements ActionListener {
     {
         return PizzaDeliveryGUI.customers.get(i);
     }
+
+    public void save(String fileName) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
+        for (Customer customer : PizzaDeliveryGUI.customers)
+            pw.println(customer.toString());
+        pw.close();
+    }
+
 }
