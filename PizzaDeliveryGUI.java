@@ -7,6 +7,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 
 /**
  * author: Miomir Miletic
@@ -28,7 +30,7 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener{
 
     public static void main(String[] args) {
 
-        PizzaDeliveryGUI gui = new PizzaDeliveryGUI(); //driver running the gui application
+        PizzaDeliveryGUI gui = new PizzaDeliveryGUI(); //main driver class that starts the GUI application.
         gui.setVisible(true);
 
     }
@@ -47,6 +49,7 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener{
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.add(userMenu);
+
 
 
 
@@ -124,6 +127,18 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener{
 
     }
 
+    private void load(ObjectInputStream ois)
+            throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        // how many customers to read.
+        int size = ois.readInt();
+        for (int i = 0; i < size; i++) {
+            Customer c = (Customer) ois.readObject();
+            customers.add(c);
+        }
+
+    }
+
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("Register Account") || e.getSource() == signupButton) {
@@ -152,7 +167,7 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener{
                     ausername = customers.get(i).getUsername();
                     apassword = customers.get(i).getPassword();
 
-                    //checks to see if a customer is registered by going through the array list of customers.
+                    //checks to see if a customer is registered by going through the list of customers.
 
                     if (name.equals(ausername) && password.equals(apassword)) {
                         JOptionPane.showMessageDialog(null, "Welcome " + name,"Login Successful",
@@ -168,14 +183,14 @@ public class PizzaDeliveryGUI extends JFrame implements ActionListener{
                 }
 
                 if(i == customers.size())
-                    JOptionPane.showMessageDialog(null, "Invalid user/password", "Login Failed",
+                    JOptionPane.showMessageDialog(null, "Invalid username/password", "Login Failed",
                             JOptionPane.ERROR_MESSAGE);
 
 
             }
 
             else
-                JOptionPane.showMessageDialog(null, "Invalid user/password", "Login Failed",
+                JOptionPane.showMessageDialog(null, "Invalid username/password", "Login Failed",
                         JOptionPane.ERROR_MESSAGE);
 
         }

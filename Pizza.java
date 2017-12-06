@@ -3,7 +3,7 @@ package Project;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pizza extends Toppings implements Serializable {
+public class Pizza extends Toppings {
     private String type;
     private String size;
     private Toppings toppings;

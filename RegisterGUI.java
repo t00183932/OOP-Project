@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class RegisterGUI extends JFrame implements ActionListener {
 
-    JLabel nameLabel, cityLabel, addressLabel, houseNoLabel, userLabel, passLabel, phoneLabel, emailLabel;
-    JTextField nameField, cityField, addressField, houseNoField, userField, phoneField, emailField;
+    JLabel nameLabel, countyLabel, addressLabel, houseNoLabel, userLabel, passLabel, phoneLabel, emailLabel;
+    JTextField nameField, countyField, addressField, houseNoField, userField, phoneField, emailField;
     JPasswordField passField;
     JButton registerButton, cancelButton;
 
@@ -40,13 +40,13 @@ public class RegisterGUI extends JFrame implements ActionListener {
         nameField.setBounds(100, 10, 160, 25);
         pane.add(nameField);
 
-        cityLabel = new JLabel("City");
-        cityLabel.setBounds(10, 40, 80, 25);
-        pane.add(cityLabel);
+        countyLabel = new JLabel("County");
+        countyLabel.setBounds(10, 40, 80, 25);
+        pane.add(countyLabel);
 
-        cityField = new JTextField(20);
-        cityField.setBounds(100, 40, 160, 25);
-        pane.add(cityField);
+        countyField = new JTextField(20);
+        countyField.setBounds(100, 40, 160, 25);
+        pane.add(countyField);
 
         addressLabel = new JLabel("Address");
         addressLabel.setBounds(10, 70, 80, 25);
@@ -117,7 +117,7 @@ public class RegisterGUI extends JFrame implements ActionListener {
             password = new String(passField.getPassword());
 
             if(PizzaDeliveryGUI.customers.isEmpty()) {
-                PizzaDeliveryGUI.customer = new Customer(nameField.getText(), cityField.getText(), addressField.getText(), houseNo,
+                PizzaDeliveryGUI.customer = new Customer(nameField.getText(), countyField.getText(), addressField.getText(), houseNo,
                         username, password, phoneField.getText(), emailField.getText(), orders);
 
                 PizzaDeliveryGUI.customers.add(PizzaDeliveryGUI.customer);
@@ -129,6 +129,7 @@ public class RegisterGUI extends JFrame implements ActionListener {
                     var4.printStackTrace();
                     this.dispose();
                 }
+                this.dispose();
 
             }
             else {
@@ -145,7 +146,7 @@ public class RegisterGUI extends JFrame implements ActionListener {
                     }
 
                     if(i == PizzaDeliveryGUI.customers.size()) {
-                        PizzaDeliveryGUI.customer = new Customer(nameField.getText(), cityField.getText(), addressField.getText(), houseNo,
+                        PizzaDeliveryGUI.customer = new Customer(nameField.getText(), countyField.getText(), addressField.getText(), houseNo,
                                 username, password, phoneField.getText(), emailField.getText(), orders);
 
 
@@ -177,6 +178,8 @@ public class RegisterGUI extends JFrame implements ActionListener {
             }
 
 
+
+
     public void save(String fileName) throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
         for (Customer customer : PizzaDeliveryGUI.customers)
@@ -184,6 +187,15 @@ public class RegisterGUI extends JFrame implements ActionListener {
         pw.close();
     }
 
+    private void write(ObjectOutputStream oos) throws IOException {
+        oos.defaultWriteObject();
+        // How many custoemrs we're tracking.
+        oos.writeInt(PizzaDeliveryGUI.customers.size());
+        for (Customer c : PizzaDeliveryGUI.customers) {
+            oos.writeObject(c);
+        }
+        System.out.println("session serialized");
+    }
 
 
 

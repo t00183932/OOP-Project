@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Customer extends Order {
     private String type;
     private String name;
-    private String city;
+    private String county;
     private String address;
     private int houseNo;
     private String username;
@@ -20,10 +20,10 @@ public class Customer extends Order {
         this("unknown","unknown","unknown",0,"Unknown","unknown","unknown","unknown",null);
     }
 
-    public Customer(String name, String city, String address,int houseNo,String username, String password, String phone, String email, ArrayList<Pizza> orders)
+    public Customer(String name, String county, String address,int houseNo,String username, String password, String phone, String email, ArrayList<Pizza> orders)
     {
         setName(name);
-        setCity(city);
+        setCity(county);
         setAddress(address);
         setHouseNo(houseNo);
         setUsername(username);
@@ -43,8 +43,8 @@ public class Customer extends Order {
         this.name = name;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(String county) {
+        this.county = county;
     }
 
     public void setAddress(String address) {
@@ -82,8 +82,8 @@ public class Customer extends Order {
         return name;
     }
 
-    public String getCity() {
-        return city;
+    public String getCounty() {
+        return county;
     }
 
     public String getAddress() {
@@ -111,7 +111,7 @@ public class Customer extends Order {
     }
 
     public String toString() {
-        return String.format("%s%s\n%s%s\n%s%s\n%s%s\n%s%d\n%s%s\n%s%s","Name: ", getName(),"Username: ", getUsername(),"City:", getCity(),"Address: ", getAddress(),
+        return String.format("%s%s\n%s%s\n%s%s\n%s%s\n%s%d\n%s%s\n%s%s","Name: ", getName(),"Username: ", getUsername(),"County:", getCounty(),"Address: ", getAddress(),
                 "HouseNo: ", getHouseNo(),"Phone: ", getPhone(),"Email: ", getEmail());
     }
 }

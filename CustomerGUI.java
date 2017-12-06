@@ -216,6 +216,7 @@ public class CustomerGUI extends JFrame implements ActionListener {
             }
 
             else {
+                //following code taken and modified from https://stackoverflow.com/questions/201287/how-do-i-get-which-jradiobutton-is-selected-from-a-buttongroup
                 for (int i = 0; i < typeGroup.getButtonCount(); i++) {
                     if (typeGroup.getSelection().isSelected()) {
                         for (Enumeration<AbstractButton> buttons = typeGroup.getElements(); buttons.hasMoreElements(); ) {
@@ -292,15 +293,16 @@ public class CustomerGUI extends JFrame implements ActionListener {
                     else
                         JOptionPane.showMessageDialog(null,"Order Cancelled","Order",0);
 
-                    toppingPrice = 0;
-                    pizzaPrice = 0;
-                    main = new ArrayList<>();
-                    sizeGroup.clearSelection();
-                    typeGroup.clearSelection();
                 }
 
 
         }
+
+        toppingPrice = 0;
+        pizzaPrice = 0;
+        main = new ArrayList<>();
+        sizeGroup.clearSelection();
+        typeGroup.clearSelection();
 
         if(e.getActionCommand().equals("View Orders"))
         {
